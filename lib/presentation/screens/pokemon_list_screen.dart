@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
 import 'package:pokemon_time/common/style/padding.dart';
+import 'package:pokemon_time/common/style/text_styles.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_page_cubit/pokemon_page_cubit.dart';
 import 'package:pokemon_time/presentation/widgets/pokemon_stack_widget.dart';
 
@@ -34,10 +35,14 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
       builder: (context, state) {
         return BlocListener<PokemonPageCubit, int>(
           listener: (context, state) {
-            cubit.fetchPokemonList(state); // Chỉ tải nếu có thay đổi
+            cubit.fetchPokemonList(state); // Chỉ tải nếu có thay đổi page
           },
           child: Scaffold(
-            appBar: AppBar(title: const Text("Pokémon List")),
+            appBar: AppBar(
+                title: const Text(
+              "Pokémon List",
+              style: TextStyles.appBarTitle,
+            )),
             body: BlocBuilder<GetListPokemonCubit, PokemonListState>(
               builder: (context, state) {
                 if (state is PokemonListLoading) {
@@ -47,7 +52,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                     strokeWidth: 3,
                     onRefresh: () async {
                       await Future.delayed(const Duration(seconds: 2));
-                      return cubit.fetchPokemonList(0);
+                      return cubit.fetchPokemonList(pageCubit.state);
                     },
                     child: ListView.builder(
                       padding: Paddings.defaultPadding,
@@ -69,15 +74,26 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Visibility(
-                  visible: state != 0,
-                  child: FloatingActionButton(
-                    shape: const CircleBorder(),
-                    heroTag: 'previous',
-                    onPressed: () => pageCubit.previous(),
-                    child: const Icon(Icons.arrow_back_ios_rounded),
-                  ),
-                ),
+                // Visibility(
+                //   visible: state != 0,
+                //   child: FloatingActionButton(
+                //     shape: const CircleBorder(),
+                //     heroTag: 'previous',
+                //     onPressed: () => pageCubit.previous(),
+                //     child: const Icon(Icons.arrow_back_ios_rounded),
+                //   ),
+                // ),
+                state != 0
+                    ? FloatingActionButton(
+                        shape: const CircleBorder(),
+                        heroTag: 'previous',
+                        onPressed: () => pageCubit.previous(),
+                        child: const Icon(Icons.arrow_back_ios_rounded),
+                      )
+                    : const SizedBox(
+                        height: kFloatingActionButtonTurnInterval,
+                        width: kFloatingActionButtonMargin,
+                      ),
                 Visibility(
                   visible: state != 0,
                   child: Card(
@@ -91,12 +107,24 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                 ),
                 Visibility(
                   visible: state != 1301,
-                  child: FloatingActionButton(
-                    shape: const CircleBorder(),
-                    heroTag: 'next',
-                    onPressed: () => pageCubit.nextPage(),
-                    child: const Icon(Icons.arrow_forward_ios_rounded),
-                  ),
+                  child: state == 0
+                      ? FloatingActionButton.extended(
+                          // shape: const rectang(),
+                          heroTag: 'big_next',
+                          onPressed: () => pageCubit.nextPage(),
+                          label: const Row(
+                            children: [
+                              Text('Next'),
+                              Icon(Icons.arrow_forward_ios_rounded),
+                            ],
+                          ),
+                        )
+                      : FloatingActionButton(
+                          shape: const CircleBorder(),
+                          heroTag: 'next',
+                          onPressed: () => pageCubit.nextPage(),
+                          child: const Icon(Icons.arrow_forward_ios_rounded),
+                        ),
                 ),
               ],
             ),

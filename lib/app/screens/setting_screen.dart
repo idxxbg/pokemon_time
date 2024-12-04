@@ -15,14 +15,35 @@ class SettingScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: kToolbarHeight),
-              ListTile(
-                title: const Text('Dark mode'),
-                trailing: CupertinoSwitch(
-                  value: isDark,
-                  onChanged: (isDark) {
-                    context.read<ThemeCubit>().changeThemeMode();
-                  },
+              // ListTile(
+              //   title: const Text('Dark mode'),
+              //   trailing: CupertinoSwitch(
+              //     value: isDark,
+              //     onChanged: (isDark) {
+              //       context.read<ThemeCubit>().changeThemeMode();
+              //     },
+              //   ),
+              // ),
+              CupertinoFormSection.insetGrouped(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                header: const Text('Setting'),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(20),
+                  border:
+                      Border.all(color: Theme.of(context).secondaryHeaderColor),
                 ),
+                children: [
+                  ListTile(
+                    title: const Text('Dark mode'),
+                    trailing: CupertinoSwitch(
+                      value: isDark,
+                      onChanged: (isDark) {
+                        context.read<ThemeCubit>().changeThemeMode();
+                      },
+                    ),
+                  ),
+                ],
               )
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
+import 'package:pokemon_time/common/style/text_styles.dart';
 import 'package:pokemon_time/data/models/pokemon_model.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
@@ -10,7 +11,11 @@ class PokemonDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        centerTitle: true,
+        title: const Text(
+          'Pokémon Details',
+          style: TextStyles.appBarTitle,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

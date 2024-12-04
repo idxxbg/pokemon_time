@@ -43,7 +43,7 @@ class PokemonStackWidget extends StatelessWidget {
                       child: Text(pokemon.name.capitalize()),
                     ),
                     trailing: Card(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).secondaryHeaderColor,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child:
