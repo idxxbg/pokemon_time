@@ -10,10 +10,11 @@ class GetListPokemonCubit extends Cubit<PokemonListState> {
   GetListPokemonCubit() : super(PokemonListInitial());
 
   Future<void> fetchPokemonList(int offset) async {
+    final List<PokemonBasicInfo> cachedPokemonList = [];
+
     final dio = Dio();
-    final List<PokemonBasicInfo> _cachedPokemonList = [];
-    if (_cachedPokemonList.isNotEmpty) {
-      emit(PokemonListLoaded(_cachedPokemonList)); // Sử dụng cache nếu có
+    if (cachedPokemonList.isNotEmpty) {
+      emit(PokemonListLoaded(cachedPokemonList)); // Sử dụng cache nếu có
       return;
     }
     emit(PokemonListLoading());
@@ -41,7 +42,7 @@ class GetListPokemonCubit extends Cubit<PokemonListState> {
           }),
         );
 
-        _cachedPokemonList.addAll(detailedPokemonList); // Lưu vào cache
+        cachedPokemonList.addAll(detailedPokemonList); // Lưu vào cache
         emit(PokemonListLoaded(detailedPokemonList));
       } else {
         throw Exception('fail to Load pokemon');

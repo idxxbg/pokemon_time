@@ -5,6 +5,7 @@ import 'package:pokemon_time/common/style/padding.dart';
 import 'package:pokemon_time/common/style/text_styles.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_page_cubit/pokemon_page_cubit.dart';
 import 'package:pokemon_time/presentation/widgets/pokemon_stack_widget.dart';
+import 'package:soft_edge_blur/soft_edge_blur.dart';
 
 import '../bloc/list_pokemon_cubit/get_list_pokemon_cubit.dart';
 import '../bloc/list_pokemon_cubit/pokemon_list_state.dart';
@@ -39,10 +40,11 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
           },
           child: Scaffold(
             appBar: AppBar(
-                title: const Text(
-              "Pokémon List",
-              style: TextStyles.appBarTitle,
-            )),
+              title: const Text(
+                "Pokémon List",
+                style: TextStyles.appBarTitle,
+              ),
+            ),
             body: BlocBuilder<GetListPokemonCubit, PokemonListState>(
               builder: (context, state) {
                 if (state is PokemonListLoading) {
@@ -71,62 +73,74 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                     child: Text("Pull down to load Pokémon! ⬇"));
               },
             ),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Visibility(
-                //   visible: state != 0,
-                //   child: FloatingActionButton(
-                //     shape: const CircleBorder(),
-                //     heroTag: 'previous',
-                //     onPressed: () => pageCubit.previous(),
-                //     child: const Icon(Icons.arrow_back_ios_rounded),
-                //   ),
-                // ),
-                state != 0
-                    ? FloatingActionButton(
-                        shape: const CircleBorder(),
-                        heroTag: 'previous',
-                        onPressed: () => pageCubit.previous(),
-                        child: const Icon(Icons.arrow_back_ios_rounded),
-                      )
-                    : const SizedBox(
-                        height: kFloatingActionButtonTurnInterval,
-                        width: kFloatingActionButtonMargin,
-                      ),
-                Visibility(
-                  visible: state != 0,
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      child: Text('page: ${(state / 20 + 1).round().toString()}'
-                          .capitalize()),
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: state != 1301,
-                  child: state == 0
-                      ? FloatingActionButton.extended(
-                          // shape: const rectang(),
-                          heroTag: 'big_next',
-                          onPressed: () => pageCubit.nextPage(),
-                          label: const Row(
-                            children: [
-                              Text('Next'),
-                              Icon(Icons.arrow_forward_ios_rounded),
-                            ],
+            floatingActionButton:
+                BlocBuilder<GetListPokemonCubit, PokemonListState>(
+              builder: (context, pokemonState) {
+                bool isLoading = pokemonState is PokemonListLoading;
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // Visibility(
+                    //   visible: state != 0,
+                    //   child: FloatingActionButton(
+                    //     shape: const CircleBorder(),
+                    //     heroTag: 'previous',
+                    //     onPressed: () => pageCubit.previous(),
+                    //     child: const Icon(Icons.arrow_back_ios_rounded),
+                    //   ),
+                    // ),
+                    state != 0
+                        ? FloatingActionButton(
+                            shape: const CircleBorder(),
+                            heroTag: 'previous',
+                            onPressed:
+                                isLoading ? null : () => pageCubit.previous(),
+                            child: const Icon(Icons.arrow_back_ios_rounded),
+                          )
+                        : const SizedBox(
+                            height: kFloatingActionButtonTurnInterval,
+                            width: kFloatingActionButtonMargin,
                           ),
-                        )
-                      : FloatingActionButton(
-                          shape: const CircleBorder(),
-                          heroTag: 'next',
-                          onPressed: () => pageCubit.nextPage(),
-                          child: const Icon(Icons.arrow_forward_ios_rounded),
+                    Visibility(
+                      visible: state != 0,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 2),
+                          child: Text(
+                              'page: ${(state / 20 + 1).round().toString()}'
+                                  .capitalize()),
                         ),
-                ),
-              ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: state != 1301,
+                      child: state == 0
+                          ? FloatingActionButton.extended(
+                              // shape: const rectang(),
+                              heroTag: 'big_next',
+                              onPressed:
+                                  isLoading ? null : () => pageCubit.nextPage(),
+                              label: const Row(
+                                children: [
+                                  Text('Next'),
+                                  Icon(Icons.arrow_forward_ios_rounded),
+                                ],
+                              ),
+                            )
+                          : FloatingActionButton(
+                              shape: const CircleBorder(),
+                              heroTag: 'next',
+                              onPressed:
+                                  isLoading ? null : () => pageCubit.nextPage(),
+                              child:
+                                  const Icon(Icons.arrow_forward_ios_rounded),
+                            ),
+                    ),
+                  ],
+                );
+              },
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

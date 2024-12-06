@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
@@ -26,34 +27,35 @@ class PokemonStackWidget extends StatelessWidget {
                 right: 0,
                 left: 0,
                 child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
                   child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (_) => PokemonDetailScreen(
                             pokemon: pokemon.pokemon!,
                           ),
                         ),
                       );
-                      context.read<GetPokemonCubit>().getPokemon(pokemon.url);
                     },
                     title: Material(
                       color: Colors.transparent,
-                      child: Text(pokemon.name.capitalize()),
+                      child: Text(
+                        pokemon.name.capitalize(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ),
-                    trailing: Card(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              Text(pokemon.pokemon!.baseExperience.toString()),
-                        )),
+                    subtitle: Text(
+                        'Base Experience: ${pokemon.pokemon!.baseExperience.toString()}'),
                   ),
                 ),
               ),
               Positioned(
-                right: 40,
+                right: 0,
                 child: Hero(
                   tag: pokemon
                       .pokemon!.sprites.other.officialArtwork.frontDefault,
@@ -62,8 +64,6 @@ class PokemonStackWidget extends StatelessWidget {
                       imageUrl: pokemon
                           .pokemon!.sprites.other.officialArtwork.frontDefault,
                       height: 200,
-                      // height: MediaQuery.sizeOf(context).height * 0.2,
-
                       width: 200,
                       fit: BoxFit.cover,
                     ),
