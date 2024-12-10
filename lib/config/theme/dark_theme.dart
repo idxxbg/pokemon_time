@@ -7,8 +7,9 @@ ThemeData darkTheme = ThemeData(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: ZoomPageTransitionsBuilder(
         allowEnterRouteSnapshotting: false,
+        allowSnapshotting: false,
       ),
     },
   ),
-  useMaterial3: false,
+  useMaterial3: true,
 );

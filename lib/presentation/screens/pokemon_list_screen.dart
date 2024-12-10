@@ -189,8 +189,11 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
               return cubit.fetchPokemonList(pageCubit.state);
             },
             child: MasonryGridView.builder(
+              shrinkWrap: true,
               padding: Paddings.defaultPadding,
               physics: const BouncingScrollPhysics(),
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
               itemCount: state.pokemonList.length,
               itemBuilder: (context, index) {
                 final pokemon = state.pokemonList[index];
