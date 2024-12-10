@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
 import 'package:pokemon_time/common/style/text_styles.dart';
 import 'package:pokemon_time/data/models/pokemon_model.dart';
@@ -42,6 +43,27 @@ class PokemonDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _buildPokemonImageWidget({required String imageUrl}) {
+    return SizedBox(
+      width: double.infinity,
+      child: Hero(
+        tag: imageUrl,
+        child: Material(
+          color: Colors.transparent,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: BoxFit.contain,
+            height: 300,
+            width: 300,
+          ),
+        ),
+      ),
+    )
+        .animate()
+        .scaleXY(delay: 800.ms, begin: 0.9, end: 1)
+        .shimmer(duration: 3.seconds, curve: Curves.easeInOutCirc);
   }
 
   Card _rectangleInfo(String pokemon, String text) {
@@ -88,24 +110,6 @@ class PokemonDetailScreen extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Text(pokemon.name.capitalize()),
-      ),
-    );
-  }
-
-  _buildPokemonImageWidget({required String imageUrl}) {
-    return SizedBox(
-      width: double.infinity,
-      child: Hero(
-        tag: imageUrl,
-        child: Material(
-          color: Colors.transparent,
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.contain,
-            height: 300,
-            width: 300,
-          ),
-        ),
       ),
     );
   }

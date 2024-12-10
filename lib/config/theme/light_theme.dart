@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 ThemeData lightTheme = ThemeData(
   colorSchemeSeed: Colors.blueAccent.shade100,
   brightness: Brightness.light,
+  // TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
   pageTransitionsTheme: const PageTransitionsTheme(
-    builders: {
-      // Use PredictiveBackPageTransitionsBuilder to get the predictive back route transition!
-      TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+    builders: <TargetPlatform, PageTransitionsBuilder>{
+      TargetPlatform.android: ZoomPageTransitionsBuilder(
+        allowEnterRouteSnapshotting: false,
+      ),
     },
   ),
   useMaterial3: true,

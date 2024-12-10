@@ -15,6 +15,8 @@ class PokemonStackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<GetPokemonCubit>().getPokemon(pokemon.url);
+    final imageUrl =
+        pokemon.pokemon!.sprites.other.officialArtwork.frontDefault;
     return BlocBuilder<GetPokemonCubit, PokemonState>(
       builder: (context, state) {
         return SizedBox(
@@ -28,10 +30,10 @@ class PokemonStackWidget extends StatelessWidget {
                 left: 0,
                 child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
+                      borderRadius: BorderRadius.circular(28)),
                   child: ListTile(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
+                        borderRadius: BorderRadius.circular(28)),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -57,12 +59,10 @@ class PokemonStackWidget extends StatelessWidget {
               Positioned(
                 right: 0,
                 child: Hero(
-                  tag: pokemon
-                      .pokemon!.sprites.other.officialArtwork.frontDefault,
+                  tag: imageUrl,
                   child: IgnorePointer(
                     child: CachedNetworkImage(
-                      imageUrl: pokemon
-                          .pokemon!.sprites.other.officialArtwork.frontDefault,
+                      imageUrl: imageUrl,
                       height: 200,
                       width: 200,
                       fit: BoxFit.cover,

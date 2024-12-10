@@ -4,11 +4,11 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   colorSchemeSeed: Colors.pinkAccent,
   pageTransitionsTheme: const PageTransitionsTheme(
-    builders: {
-      // Use PredictiveBackPageTransitionsBuilder to get the predictive back route transition!
-      // TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+    builders: <TargetPlatform, PageTransitionsBuilder>{
+      TargetPlatform.android: ZoomPageTransitionsBuilder(
+        allowEnterRouteSnapshotting: false,
+      ),
     },
   ),
-  useMaterial3: true,
+  useMaterial3: false,
 );
