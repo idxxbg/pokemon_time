@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:glass/glass.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
 import 'package:pokemon_time/common/style/padding.dart';
 import 'package:pokemon_time/common/style/text_styles.dart';
@@ -81,11 +82,12 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                     children: [
                       state != 0
                           ? FloatingActionButton(
+                              tooltip: 'Previous page',
                               shape: const CircleBorder(),
                               heroTag: 'previous',
                               onPressed:
                                   isLoading ? null : () => pageCubit.previous(),
-                              child: const Icon(Icons.arrow_back_ios_rounded),
+                              child: const Icon(Icons.first_page_sharp),
                             )
                           : const SizedBox(
                               height: kFloatingActionButtonTurnInterval,
@@ -94,41 +96,36 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                       Visibility(
                         visible: state != 0,
                         child: Card(
+                          color: Colors.transparent,
+                          shadowColor: Colors.transparent,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 2),
                             child: Text(
-                                'page: ${(state / 20 + 1).round().toString()}'
-                                    .capitalize()),
+                              'page: ${(state / 20 + 1).round().toString()}'
+                                  .capitalize(),
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                           ),
-                        ),
+                        ).asGlass(
+                            tintColor: Theme.of(context).colorScheme.secondary,
+                            tileMode: TileMode.mirror,
+                            frosted: false,
+                            blurX: 3,
+                            blurY: 3,
+                            clipBorderRadius: BorderRadius.circular(20)),
                       ),
-                      Visibility(
-                        visible: state != 1301,
-                        child: state == 0
-                            ? FloatingActionButton.extended(
-                                // shape: const rectang(),
-                                heroTag: 'big_next',
-                                onPressed: isLoading
-                                    ? null
-                                    : () => pageCubit.nextPage(),
-                                label: const Row(
-                                  children: [
-                                    Text('Next'),
-                                    Icon(Icons.arrow_forward_ios_rounded),
-                                  ],
-                                ),
-                              )
-                            : FloatingActionButton(
-                                shape: const CircleBorder(),
-                                heroTag: 'next',
-                                onPressed: isLoading
-                                    ? null
-                                    : () => pageCubit.nextPage(),
-                                child:
-                                    const Icon(Icons.arrow_forward_ios_rounded),
-                              ),
-                      ),
+                      FloatingActionButton.extended(
+                        tooltip: 'Next page',
+                        // shape: const rectang(),
+                        heroTag: 'big_next',
+                        shape: state != 0 ? const CircleBorder() : null,
+                        isExtended: state == 0,
+                        onPressed:
+                            isLoading ? null : () => pageCubit.nextPage(),
+                        label: const Text('Next'),
+                        icon: const Icon(Icons.last_page_sharp),
+                      )
                     ],
                   );
                 },

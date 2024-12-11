@@ -20,12 +20,15 @@ class SpritesModel {
 }
 
 class OtherModel {
-  const OtherModel({required this.officialArtwork});
+  const OtherModel({required this.officialArtwork, required this.home});
+
+  final Home home;
 
   final OfficialArtworkModel officialArtwork;
 
   static OtherModel fromJson(Map<String, dynamic> json) {
     return OtherModel(
+        home: Home.fromJson(json[khome]),
         officialArtwork: OfficialArtworkModel.fromJson(json[kOfficialArtwork]));
   }
 
@@ -33,6 +36,22 @@ class OtherModel {
     return {
       kOfficialArtwork: officialArtwork,
     };
+  }
+}
+
+class Home {
+  const Home({
+    required this.frontDefault,
+    required this.frontShiny,
+  });
+  final String frontDefault;
+  final String frontShiny;
+
+  static Home fromJson(Map<String, dynamic> json) {
+    return Home(
+      frontDefault: json[kfrontdefault],
+      frontShiny: json[kfrontshiny],
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:glass/glass.dart';
 import 'dart:math';
 
 import 'package:pokemon_time/app/bloc/screen_nav_cubit.dart';
@@ -38,6 +39,12 @@ class App extends StatelessWidget {
                 label: 'Settings',
               ),
             ],
+          ).asGlass(
+            tileMode: TileMode.mirror,
+            frosted: false,
+            blurX: 3,
+            blurY: 3,
+            clipBorderRadius: BorderRadius.circular(20),
           ),
         );
       },

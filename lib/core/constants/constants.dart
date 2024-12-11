@@ -7,6 +7,7 @@ String ksprites = 'sprites';
 String ktypes = 'types';
 String ktype = 'type';
 String kOther = 'other';
+String khome = 'home';
 String kOfficialArtwork = 'official-artwork';
 String kfrontdefault = 'front_default';
 String kfrontshiny = 'front_shiny';

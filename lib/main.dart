@@ -8,6 +8,7 @@ import 'package:pokemon_time/config/theme/dark_theme.dart';
 import 'package:pokemon_time/core/services/share_prerences.dart';
 import 'package:pokemon_time/presentation/bloc/list_pokemon_cubit/get_list_pokemon_cubit.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_cubit/get_pokemon_cubit.dart';
+import 'package:pokemon_time/app/bloc/pokemon_image_3d_cubit.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_page_cubit/pokemon_page_cubit.dart';
 
 import 'config/theme/light_theme.dart';
@@ -36,13 +37,17 @@ class MyApp extends StatelessWidget {
           create: (context) => GetPokemonCubit(),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit(ThemeSharePrerences()),
+          create: (context) => ThemeCubit(ThemeSharedPrerences()),
         ),
         BlocProvider(
           create: (context) => ScreenNavCubit(),
         ),
         BlocProvider(
           create: (context) => PokemonPageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PokemonImage3DCubit(
+              image3DSharedPrerences: Image3DSharedPrerences()),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, themeMode) {

@@ -12,5 +12,10 @@ class Paddings {
     top: 36.0,
   );
 
+  static const noHeaderPadding = EdgeInsets.only(
+    right: 24.0,
+    left: 24.0,
+  );
+
   // Paddings._();
 }

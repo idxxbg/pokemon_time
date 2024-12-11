@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
 import 'package:pokemon_time/data/models/pokemon_model.dart';
 import 'package:pokemon_time/presentation/screens/pokemon_detail_screen.dart';
+import 'package:pokemon_time/presentation/widgets/pokemon_image_widget.dart';
 
 class PokemonContainerWiget extends StatelessWidget {
   const PokemonContainerWiget({super.key, required this.pokemon});
@@ -11,15 +11,17 @@ class PokemonContainerWiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = pokemon.sprites.other.officialArtwork.frontDefault;
     return OpenContainer(
+        closedElevation: 0,
+        transitionType: ContainerTransitionType.fade,
         closedShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         openShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         transitionDuration: const Duration(milliseconds: 350),
         middleColor: Theme.of(context).colorScheme.surface,
         closedColor: Theme.of(context).colorScheme.surface,
+        openColor: Theme.of(context).colorScheme.surface,
         closedBuilder: (context, closeaction) {
           return SizedBox(
             height: 250,
@@ -42,13 +44,10 @@ class PokemonContainerWiget extends StatelessWidget {
                   ),
                 ),
               ),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                fit: BoxFit.fitWidth,
-                height: 200,
+              child: PokemonImageWidget(
+                other: pokemon.sprites.other,
+                height: 150,
                 width: 100,
-                errorWidget: (context, url, error) =>
-                    const Icon(Icons.image_not_supported_rounded),
               ),
             ),
           );

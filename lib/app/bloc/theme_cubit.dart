@@ -6,7 +6,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
   ThemeCubit(this._preferences) : super(_lightMode) {
     loadThemeMode();
   }
-  final ThemeSharePrerences _preferences;
+  final ThemeSharedPrerences _preferences;
   static const _lightMode = ThemeMode.light;
   static const _darkMode = ThemeMode.dark;
 

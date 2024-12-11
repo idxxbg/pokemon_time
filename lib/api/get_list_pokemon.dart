@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pokemon_time/core/constants/constants.dart';
-import 'package:pokemon_time/data/models/pokemon_list_models.dart';
+import 'package:pokemon_time/data/models/pokemon_basic_info.dart';
 
 // class GetListPokemon {
 //   GetListPokemon({required this.dio, required this.offset});

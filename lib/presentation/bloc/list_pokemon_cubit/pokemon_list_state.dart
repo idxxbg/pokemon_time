@@ -1,4 +1,4 @@
-import '../../../data/models/pokemon_list_models.dart';
+import '../../../data/models/pokemon_basic_info.dart';
 
 abstract class PokemonListState {}
 

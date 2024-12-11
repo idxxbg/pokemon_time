@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokemon_time/data/models/pokemon_list_models.dart';
+import 'package:pokemon_time/data/models/pokemon_basic_info.dart';
 
 import '../../../core/constants/constants.dart';
 import '../../../data/models/pokemon_model.dart';

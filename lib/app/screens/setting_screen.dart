@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_time/app/bloc/theme_cubit.dart';
 import 'package:pokemon_time/common/style/text_styles.dart';
+import 'package:pokemon_time/app/bloc/pokemon_image_3d_cubit.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -35,7 +36,7 @@ class SettingScreen extends StatelessWidget {
                   ),
                   children: [
                     ListTile(
-                      title: const Text('Dark mode'),
+                      title: const Text('Dark mode IOS'),
                       trailing: CupertinoSwitch(
                         value: isDark,
                         onChanged: (isDark) {
@@ -44,18 +45,39 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                        title: const Text('Dark mode'),
-                        trailing: Switch(
-                          thumbIcon: WidgetStatePropertyAll(
-                            Icon(isDark
-                                ? Icons.nightlight_round
-                                : Icons.wb_sunny_rounded),
+                      title: const Text('Dark mode Material 3'),
+                      trailing: Switch(
+                        thumbIcon: WidgetStatePropertyAll(
+                          Icon(isDark
+                              ? Icons.nightlight_round
+                              : Icons.wb_sunny_rounded),
+                        ),
+                        value: isDark,
+                        onChanged: (value) {
+                          themeCubit.changeThemeMode();
+                        },
+                      ),
+                    ),
+                    BlocBuilder<PokemonImage3DCubit, bool>(
+                      builder: (context, is3D) {
+                        return ListTile(
+                          title: const Text('3D Image'),
+                          trailing: Switch(
+                            thumbIcon: WidgetStatePropertyAll(
+                              Icon(is3D
+                                  ? Icons.catching_pokemon
+                                  : CupertinoIcons.view_2d),
+                            ),
+                            value: is3D,
+                            onChanged: (value) {
+                              context
+                                  .read<PokemonImage3DCubit>()
+                                  .onChange3Dstyle();
+                            },
                           ),
-                          value: isDark,
-                          onChanged: (value) {
-                            themeCubit.changeThemeMode();
-                          },
-                        )),
+                        );
+                      },
+                    ),
                   ],
                 )
               ],

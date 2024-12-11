@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_time/common/extenstions/extenstions.dart';
-import 'package:pokemon_time/data/models/pokemon_list_models.dart';
+import 'package:pokemon_time/data/models/pokemon_basic_info.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_cubit/get_pokemon_cubit.dart';
 import 'package:pokemon_time/presentation/bloc/pokemon_cubit/pokemon_state.dart';
 import 'package:pokemon_time/presentation/screens/pokemon_detail_screen.dart';
+import 'package:pokemon_time/presentation/widgets/pokemon_image_widget.dart';
 
 class PokemonStackWidget extends StatelessWidget {
   const PokemonStackWidget({super.key, required this.pokemon});
@@ -61,8 +62,8 @@ class PokemonStackWidget extends StatelessWidget {
                 child: Hero(
                   tag: imageUrl,
                   child: IgnorePointer(
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
+                    child: PokemonImageWidget(
+                      other: pokemon.pokemon!.sprites.other,
                       height: 200,
                       width: 200,
                       fit: BoxFit.cover,
