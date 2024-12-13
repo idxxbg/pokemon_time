@@ -79,7 +79,7 @@ class SettingScreen extends StatelessWidget {
                       },
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

@@ -8,38 +8,31 @@ class MeteorDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
-    return Stack(
-      alignment: Alignment.center,
+    return const Stack(
+      // alignment: Alignment.bottomCenter,
       children: [
         MeteorShower(
           numberOfMeteors: 10,
-          duration: const Duration(seconds: 5),
-          child: Container(
+          duration: Duration(seconds: 5),
+          child: SizedBox(
             width: double.infinity,
-            height: 200,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromARGB(255, 96, 96, 96),
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
+            height: double.infinity,
             child: Center(
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(
-                  'Meteor shower',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w600,
-                    foreground: Paint()
-                      ..shader = LinearGradient(
-                        colors: [Colors.white, Colors.white.withOpacity(0.2)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
-                  ),
-                ),
+                // child: Text(
+                //   '',
+                //   style: TextStyle(
+                //     fontSize: 32,
+                //     fontWeight: FontWeight.w600,
+                //     foreground: Paint()
+                //       ..shader = LinearGradient(
+                //         colors: [Colors.white, Colors.white.withOpacity(0.2)],
+                //         begin: Alignment.topLeft,
+                //         end: Alignment.bottomRight,
+                //       ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
+                //   ),
+                // ),
               ),
             ),
           ),
@@ -124,7 +117,7 @@ class _MeteorShowerState extends State<MeteorShower>
                       child: Transform.rotate(
                         angle: 315 * (pi / 180),
                         child: CustomPaint(
-                          size: const Size(2, 20),
+                          size: const Size(2, 80),
                           painter: MeteorPainter(),
                         ),
                       ),
