@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -16,6 +15,7 @@ class PokemonDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: kToolbarHeight,
         centerTitle: true,
         title: const Text(
           'Pokémon Details',
@@ -30,7 +30,7 @@ class PokemonDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 _buildPokemonImageWidget(other: pokemon.sprites.other),
-                _builNamePokemon(),
+                _builNamePokemon(context),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -40,7 +40,28 @@ class PokemonDetailScreen extends StatelessWidget {
                         '${pokemon.weight.toString()}  pound', 'Weight'),
                   ],
                 ),
-                _builCardInfo()
+                _builCardInfo(),
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...List.generate(pokemon.types.length, (int i) {
+                        final type = pokemon.types[i].type;
+                        return Card(
+                          child: Padding(
+                            padding: Paddings.smallPadding,
+                            child: Text(
+                              type.name.toString().capitalize(),
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                        );
+                      })
+                    ],
+                  ),
+                )
               ]),
         ),
       ),
@@ -153,13 +174,10 @@ class PokemonDetailScreen extends StatelessWidget {
     );
   }
 
-  Hero _builNamePokemon() {
-    return Hero(
-      tag: pokemon.name,
-      child: Material(
-        color: Colors.transparent,
-        child: Text(pokemon.name.capitalize()),
-      ),
+  Text _builNamePokemon(BuildContext context) {
+    return Text(
+      pokemon.name.capitalize(),
+      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }

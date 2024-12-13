@@ -16,6 +16,7 @@ class Paddings {
     right: 24.0,
     left: 24.0,
   );
+  static const smallPadding = EdgeInsets.all(8.0);
 
   // Paddings._();
 }

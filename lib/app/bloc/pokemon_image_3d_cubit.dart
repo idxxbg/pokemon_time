@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/services/share_prerences.dart';
@@ -17,6 +18,7 @@ class PokemonImage3DCubit extends Cubit<bool> {
   }
 
   Future<void> onChange3Dstyle() async {
+    HapticFeedback.lightImpact();
     final is3D = state == true;
     emit(is3D ? false : true);
     // luu lai sau khi chuyen sang dang phu dinh

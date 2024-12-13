@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -82,7 +83,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                     children: [
                       state != 0
                           ? FloatingActionButton(
-                              tooltip: 'Previous page',
+                              tooltip: 'Pkrevious page',
                               shape: const CircleBorder(),
                               heroTag: 'previous',
                               onPressed:
@@ -152,6 +153,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             strokeWidth: 3,
             onRefresh: () async {
               await Future.delayed(const Duration(seconds: 2));
+              HapticFeedback.heavyImpact();
               return cubit.fetchPokemonList(pageCubit.state);
             },
             child: ListView.builder(

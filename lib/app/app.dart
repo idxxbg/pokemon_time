@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass/glass.dart';
 import 'dart:math';
 
 import 'package:pokemon_time/app/bloc/screen_nav_cubit.dart';
 import 'package:pokemon_time/app/screens/setting_screen.dart';
+import 'package:pokemon_time/presentation/screens/meteor_demo.dart';
 import 'package:pokemon_time/presentation/screens/pokemon_list_screen.dart';
 
 class App extends StatelessWidget {
@@ -14,7 +17,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     List screens = const [
       PokemonListScreen(),
-      RainbowApp(),
+      MeteorDemo(),
       SettingScreen(),
     ];
     return BlocBuilder<ScreenNavCubit, int>(
@@ -22,8 +25,10 @@ class App extends StatelessWidget {
         return Scaffold(
           body: screens[state],
           bottomNavigationBar: BottomNavigationBar(
-            onTap: (value) =>
-                {context.read<ScreenNavCubit>().onChangeScreen(value)},
+            onTap: (value) {
+              HapticFeedback.lightImpact();
+              context.read<ScreenNavCubit>().onChangeScreen(value);
+            },
             currentIndex: state,
             items: const [
               BottomNavigationBarItem(
@@ -31,8 +36,8 @@ class App extends StatelessWidget {
                 label: 'Pokémon',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
+                icon: Icon(CupertinoIcons.moon_stars_fill),
+                label: 'comet',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
